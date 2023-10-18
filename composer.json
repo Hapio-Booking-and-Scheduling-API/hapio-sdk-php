@@ -1,0 +1,20 @@
+{
+    "name": "hapio/hapio-sdk-php",
+    "description": "Hapio SDK for PHP.",
+    "type": "library",
+    "require": {
+        "php": "^8.2",
+        "guzzlehttp/guzzle": "^7.8"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Hapio\\Sdk\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Viström Digital Development"
+        }
+    ]
+}
