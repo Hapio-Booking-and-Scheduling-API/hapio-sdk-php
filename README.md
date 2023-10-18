@@ -223,7 +223,7 @@ public function patch(array $parentIds, string $id, Service $service): Recurring
 public function delete(array $parentIds, string $id): bool;
 ```
 
-#### Hapio\Sdk\PaginatedResponse
+### Paginated responses
 
 All of the methods for API endpoints that respond with a paginated list, will return an instance of `Hapio\Sdk\PaginatedResponse`. This class has a set of methods that make it easier for you to work with these paginated responses.
 
