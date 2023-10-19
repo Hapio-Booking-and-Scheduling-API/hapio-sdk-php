@@ -2,6 +2,7 @@
     "name": "hapio/hapio-sdk-php",
     "description": "Hapio SDK for PHP.",
     "type": "library",
+    "keywords": ["hapio", "sdk", "api", "client", "booking", "scheduling"],
     "require": {
         "php": "^8.2",
         "guzzlehttp/guzzle": "^7.8"
