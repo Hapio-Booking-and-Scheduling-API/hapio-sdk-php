@@ -20,8 +20,7 @@ class ApiClient extends Client
      *
      * @var string
      */
-    // const BASE_URI = 'https://eu-central-1.hapio.net/v1/';
-    const BASE_URI = 'http://api.hapio.test/v1/';
+    const BASE_URI = 'https://eu-central-1.hapio.net/v1/';
 
     /**
      * The default timeout for requests.
