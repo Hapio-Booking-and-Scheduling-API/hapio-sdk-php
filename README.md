@@ -22,7 +22,7 @@ require __DIR__ . '/vendor/autoload.php';
 
 use Hapio\Sdk\ApiClient;
 
-// Instantiate a Hapio API client and a booking repository
+// Instantiate a Hapio API client
 $apiClient = new ApiClient('your-api-token');
 
 // Get a list of all bookings this week
