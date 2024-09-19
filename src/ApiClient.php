@@ -13,6 +13,18 @@ use Hapio\Sdk\Repositories\ResourceRepository;
 use Hapio\Sdk\Repositories\ScheduleBlockRepository;
 use Hapio\Sdk\Repositories\ServiceRepository;
 
+/**
+ * An API client for the Hapio API.
+ *
+ * @method ProjectRepository                projects()                Get the project repository.
+ * @method LocationRepository               locations()               Get the location repository.
+ * @method ResourceRepository               resources()               Get the resource repository.
+ * @method ServiceRepository                services()                Get the service repository.
+ * @method ScheduleBlockRepository          scheduleBlocks()          Get the schedule block repository.
+ * @method RecurringScheduleRepository      recurringSchedules()      Get the recurring schedule repository.
+ * @method RecurringScheduleBlockRepository recurringScheduleBlocks() Get the recurring schedule block repository.
+ * @method BookingRepository                bookings()                Get the booking repository.
+ */
 class ApiClient extends Client
 {
     /**
