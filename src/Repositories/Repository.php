@@ -2,23 +2,23 @@
 
 namespace Hapio\Sdk\Repositories;
 
-use Hapio\Sdk\ApiClient;
+use GuzzleHttp\Client;
 
 abstract class Repository
 {
     /**
-     * The API client to use for requests.
+     * The HTTP client to use for requests.
      *
-     * @var ApiClient
+     * @var Client
      */
     protected $client;
 
     /**
      * Constructor.
      *
-     * @param ApiClient $client The API client to use for requests.
+     * @param Client $client The HTTP client to use for requests.
      */
-    public function __construct(ApiClient $client)
+    public function __construct(Client $client)
     {
         $this->client = $client;
     }

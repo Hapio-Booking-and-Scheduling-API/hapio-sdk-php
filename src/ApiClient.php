@@ -2,6 +2,7 @@
 
 namespace Hapio\Sdk;
 
+use Error;
 use GuzzleHttp\Client;
 use Hapio\Sdk\Repositories\BookingRepository;
 use Hapio\Sdk\Repositories\LocationRepository;
@@ -25,7 +26,7 @@ use Hapio\Sdk\Repositories\ServiceRepository;
  * @method RecurringScheduleBlockRepository recurringScheduleBlocks() Get the recurring schedule block repository.
  * @method BookingRepository                bookings()                Get the booking repository.
  */
-class ApiClient extends Client
+class ApiClient
 {
     /**
      * The base URI to the API.
@@ -40,6 +41,13 @@ class ApiClient extends Client
      * @var int
      */
     const TIMEOUT = 30;
+
+    /**
+     * The HTTP client.
+     *
+     * @var Client
+     */
+    protected $httpClient;
 
     /**
      * The list of available repositories.
@@ -66,12 +74,12 @@ class ApiClient extends Client
 
     /**
      * Constructor.
-     * 
+     *
      * @param string $token The API token.
      */
     public function __construct(string $token)
     {
-        parent::__construct([
+        $this->httpClient = new Client([
             'base_uri' => self::BASE_URI,
             'timeout' => self::TIMEOUT,
             'headers' => [
@@ -95,7 +103,7 @@ class ApiClient extends Client
     public function __call($name, $arguments)
     {
         if (!array_key_exists($name, $this->repositories)) {
-            return parent::__call($name, $arguments);
+            throw new Error('Call to undefined method ' . __CLASS__ . '::' . $name . '()');
         }
 
         if (array_key_exists($name, $this->repositoryCache)) {
@@ -104,7 +112,7 @@ class ApiClient extends Client
 
         $class = $this->repositories[$name];
 
-        $repository = new $class($this);
+        $repository = new $class($this->httpClient);
 
         $this->repositoryCache[$name] = $repository;
 
