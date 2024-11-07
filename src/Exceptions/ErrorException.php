@@ -32,7 +32,7 @@ class ErrorException extends Exception
 
                 $message = implode(' ', $messages);
             } else {
-                $message = $responseBody['messages'] ?? $responseBody['message'];
+                $message = $responseBody['message'];
             }
         }
 
