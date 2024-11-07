@@ -4,6 +4,7 @@ namespace Hapio\Sdk;
 
 use Error;
 use GuzzleHttp\Client;
+use Hapio\Sdk\Repositories\BookingGroupRepository;
 use Hapio\Sdk\Repositories\BookingRepository;
 use Hapio\Sdk\Repositories\LocationRepository;
 use Hapio\Sdk\Repositories\ProjectRepository;
@@ -25,6 +26,7 @@ use Hapio\Sdk\Repositories\ServiceRepository;
  * @method RecurringScheduleRepository      recurringSchedules()      Get the recurring schedule repository.
  * @method RecurringScheduleBlockRepository recurringScheduleBlocks() Get the recurring schedule block repository.
  * @method BookingRepository                bookings()                Get the booking repository.
+ * @method BookingGroupRepository           bookingGroups()           Get the booking group repository.
  */
 class ApiClient
 {
@@ -33,28 +35,28 @@ class ApiClient
      *
      * @var string
      */
-    const BASE_URI = 'https://eu-central-1.hapio.net/v1/';
+    public const BASE_URI = 'https://eu-central-1.hapio.net/v1/';
 
     /**
      * The default timeout for requests.
      *
      * @var int
      */
-    const TIMEOUT = 30;
+    public const TIMEOUT = 30;
 
     /**
      * The HTTP client.
      *
      * @var Client
      */
-    protected $httpClient;
+    protected Client $httpClient;
 
     /**
      * The list of available repositories.
      *
      * @var array
      */
-    protected $repositories = [
+    protected array $repositories = [
         'projects' => ProjectRepository::class,
         'locations' => LocationRepository::class,
         'resources' => ResourceRepository::class,
@@ -63,6 +65,7 @@ class ApiClient
         'recurringSchedules' => RecurringScheduleRepository::class,
         'recurringScheduleBlocks' => RecurringScheduleBlockRepository::class,
         'bookings' => BookingRepository::class,
+        'bookingGroups' => BookingGroupRepository::class,
     ];
 
     /**
@@ -70,7 +73,7 @@ class ApiClient
      *
      * @var array
      */
-    protected $repositoryCache = [];
+    protected array $repositoryCache = [];
 
     /**
      * Constructor.
@@ -100,7 +103,7 @@ class ApiClient
      *
      * @return Repository|mixed
      */
-    public function __call($name, $arguments)
+    public function __call(string $name, array $arguments)
     {
         if (!array_key_exists($name, $this->repositories)) {
             throw new Error('Call to undefined method ' . __CLASS__ . '::' . $name . '()');
