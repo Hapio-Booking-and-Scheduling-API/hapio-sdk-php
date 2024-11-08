@@ -55,18 +55,26 @@ abstract class Model implements ModelInterface
                     str_ends_with(static::$casts[$property], '[]')
                     && is_array($value)
                 ) {
-                    // Cast the value to a collection of objects based on the same model.
+                    // Cast each item to an object based on a common model.
                     $className = substr(static::$casts[$property], 0, -2);
 
                     $this->{$property} = array_map(function ($item) use ($className) {
+                        if ($item instanceof $className) {
+                            return $item;
+                        }
+
                         return new $className($item);
                     }, $value);
 
                     continue;
                 }
 
-                // Cast the value to its model.
-                $this->{$property} = new static::$casts[$property]($value);
+                // Cast an item to an object based on its model.
+                if ($value instanceof static::$casts[$property]) {
+                    $this->{$property} = $value;
+                } else {
+                    $this->{$property} = new static::$casts[$property]($value);
+                }
 
                 continue;
             }
@@ -75,9 +83,15 @@ abstract class Model implements ModelInterface
                 array_key_exists($property . '.*', static::$casts)
                 && is_array($value)
             ) {
-                // Cast each item to an object based on its own model.
+                // Cast each item to an object based on its particular model.
                 $this->{$property} = array_map(function ($item) use ($property) {
-                    return new static::$casts[$property . '.*']($item);
+                    $className = static::$casts[$property . '.*'];
+
+                    if ($item instanceof $className) {
+                        return $item;
+                    }
+
+                    return new $className($item);
                 }, $value);
 
                 continue;
