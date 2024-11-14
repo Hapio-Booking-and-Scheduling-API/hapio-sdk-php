@@ -26,7 +26,7 @@ class BookingGroup extends Model
      * @var array
      */
     protected static $casts = [
-        'bookings' => Booking::class . '[]',
+        'bookings.*' => Booking::class,
         'created_at' => DateTime::class,
         'updated_at' => DateTime::class,
     ];

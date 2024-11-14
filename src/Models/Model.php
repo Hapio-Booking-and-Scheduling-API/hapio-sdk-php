@@ -51,25 +51,7 @@ abstract class Model implements ModelInterface
                 && !is_object($value)
                 && $value !== null
             ) {
-                if (
-                    str_ends_with(static::$casts[$property], '[]')
-                    && is_array($value)
-                ) {
-                    // Cast each item to an object based on a common model.
-                    $className = substr(static::$casts[$property], 0, -2);
-
-                    $this->{$property} = array_map(function ($item) use ($className) {
-                        if ($item instanceof $className) {
-                            return $item;
-                        }
-
-                        return new $className($item);
-                    }, $value);
-
-                    continue;
-                }
-
-                // Cast an item to an object based on its model.
+                // Cast the item to an object based on its model.
                 if ($value instanceof static::$casts[$property]) {
                     $this->{$property} = $value;
                 } else {
@@ -83,10 +65,10 @@ abstract class Model implements ModelInterface
                 array_key_exists($property . '.*', static::$casts)
                 && is_array($value)
             ) {
-                // Cast each item to an object based on its particular model.
-                $this->{$property} = array_map(function ($item) use ($property) {
-                    $className = static::$casts[$property . '.*'];
+                $className = static::$casts[$property . '.*'];
 
+                // Cast each item to an object based on a common model.
+                $this->{$property} = array_map(function ($item) use ($className) {
                     if ($item instanceof $className) {
                         return $item;
                     }
@@ -97,7 +79,6 @@ abstract class Model implements ModelInterface
                 continue;
             }
 
-            // The value can be used as is.
             $this->{$property} = $value;
         }
     }
