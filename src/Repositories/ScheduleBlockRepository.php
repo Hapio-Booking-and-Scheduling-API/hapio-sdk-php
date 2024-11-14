@@ -15,7 +15,7 @@ class ScheduleBlockRepository extends NestedCrudRepository
      */
     protected static function getBasePath(array $parentIds): string
     {
-        return "resources/{$parentIds[0]}/schedule-blocks";
+        return "resources/$parentIds[0]/schedule-blocks";
     }
 
     /**

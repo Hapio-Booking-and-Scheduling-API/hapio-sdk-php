@@ -11,7 +11,7 @@ abstract class Repository
      *
      * @var Client
      */
-    protected $client;
+    protected Client $client;
 
     /**
      * Constructor.

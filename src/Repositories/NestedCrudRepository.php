@@ -3,6 +3,7 @@
 namespace Hapio\Sdk\Repositories;
 
 use GuzzleHttp\Exception\BadResponseException;
+use GuzzleHttp\Exception\GuzzleException;
 use Hapio\Sdk\Exceptions\ErrorException;
 use Hapio\Sdk\Exceptions\ValidationException;
 use Hapio\Sdk\Models\ModelInterface;
@@ -19,6 +20,8 @@ abstract class NestedCrudRepository extends Repository implements NestedCrudRepo
      * @param string $id        The ID of the model.
      *
      * @return ModelInterface|null
+     * @throws ErrorException
+     * @throws GuzzleException
      */
     public function get(array $parentIds, string $id): ModelInterface|null
     {
@@ -42,6 +45,9 @@ abstract class NestedCrudRepository extends Repository implements NestedCrudRepo
      * @param array $params    The query parameters.
      *
      * @return PaginatedResponse
+     * @throws ErrorException
+     * @throws GuzzleException
+     * @throws ValidationException
      */
     public function list(array $parentIds, array $params = []): PaginatedResponse
     {
@@ -86,6 +92,9 @@ abstract class NestedCrudRepository extends Repository implements NestedCrudRepo
      * @param ModelInterface $model     The model to store.
      *
      * @return ModelInterface
+     * @throws ErrorException
+     * @throws GuzzleException
+     * @throws ValidationException
      */
     public function store(array $parentIds, ModelInterface $model): ModelInterface
     {
@@ -114,6 +123,9 @@ abstract class NestedCrudRepository extends Repository implements NestedCrudRepo
      * @param ModelInterface $model     The new model.
      *
      * @return ModelInterface
+     * @throws ErrorException
+     * @throws GuzzleException
+     * @throws ValidationException
      */
     public function replace(array $parentIds, string $id, ModelInterface $model): ModelInterface
     {
@@ -142,6 +154,9 @@ abstract class NestedCrudRepository extends Repository implements NestedCrudRepo
      * @param ModelInterface $model     The new model.
      *
      * @return ModelInterface
+     * @throws ErrorException
+     * @throws GuzzleException
+     * @throws ValidationException
      */
     public function patch(array $parentIds, string $id, ModelInterface $model): ModelInterface
     {
@@ -169,6 +184,8 @@ abstract class NestedCrudRepository extends Repository implements NestedCrudRepo
      * @param string $id        The ID of the model.
      *
      * @return bool
+     * @throws ErrorException
+     * @throws GuzzleException
      */
     public function delete(array $parentIds, string $id): bool
     {

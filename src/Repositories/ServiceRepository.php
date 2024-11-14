@@ -3,6 +3,7 @@
 namespace Hapio\Sdk\Repositories;
 
 use GuzzleHttp\Exception\BadResponseException;
+use GuzzleHttp\Exception\GuzzleException;
 use Hapio\Sdk\Exceptions\ErrorException;
 use Hapio\Sdk\Exceptions\ValidationException;
 use Hapio\Sdk\Models\BookableSlot;
@@ -39,6 +40,9 @@ class ServiceRepository extends CrudRepository
      * @param array  $params    The query parameters.
      *
      * @return PaginatedResponse
+     * @throws ErrorException
+     * @throws ValidationException
+     * @throws GuzzleException
      */
     public function listBookableSlots(string $serviceId, array $params = []): PaginatedResponse
     {
@@ -80,6 +84,8 @@ class ServiceRepository extends CrudRepository
      * @param string $serviceId The ID of the service.
      *
      * @return array
+     * @throws ErrorException
+     * @throws GuzzleException
      */
     public function listAssociatedResources(string $serviceId): array
     {
@@ -93,11 +99,9 @@ class ServiceRepository extends CrudRepository
 
         $associations = json_decode($response->getBody(), true);
 
-        $associations = array_map(function ($association) {
+        return array_map(function ($association) {
             return new ResourceServiceAssociation($association);
         }, $associations);
-
-        return $associations;
     }
 
     /**
@@ -107,6 +111,8 @@ class ServiceRepository extends CrudRepository
      * @param string $resourceId The ID of the resource.
      *
      * @return ResourceServiceAssociation
+     * @throws ErrorException
+     * @throws GuzzleException
      */
     public function getAssociatedResource(string $serviceId, string $resourceId): ResourceServiceAssociation
     {
@@ -130,6 +136,8 @@ class ServiceRepository extends CrudRepository
      * @param string $resourceId The ID of the resource.
      *
      * @return ResourceServiceAssociation
+     * @throws ErrorException
+     * @throws GuzzleException
      */
     public function associateResource(string $serviceId, string $resourceId): ResourceServiceAssociation
     {
@@ -151,6 +159,8 @@ class ServiceRepository extends CrudRepository
      * @param string $resourceId The ID of the resource.
      *
      * @return bool
+     * @throws ErrorException
+     * @throws GuzzleException
      */
     public function dissociateResource(string $serviceId, string $resourceId): bool
     {

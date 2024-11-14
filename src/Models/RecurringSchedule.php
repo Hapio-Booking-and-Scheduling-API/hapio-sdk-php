@@ -20,7 +20,7 @@ class RecurringSchedule extends Model
     ];
 
     /**
-     * The properties that schould be cast to specific classes.
+     * The properties that should be cast to specific classes.
      *
      * @var array
      */
