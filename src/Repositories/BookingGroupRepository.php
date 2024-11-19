@@ -2,20 +2,18 @@
 
 namespace Hapio\Sdk\Repositories;
 
-use Hapio\Sdk\Models\ScheduleBlock;
+use Hapio\Sdk\Models\BookingGroup;
 
-class ScheduleBlockRepository extends NestedCrudRepository
+class BookingGroupRepository extends CrudRepository
 {
     /**
      * Get the base path for the endpoints of the repository.
      *
-     * @param array $parentIds The ID of the parents.
-     *
      * @return string
      */
-    protected static function getBasePath(array $parentIds): string
+    protected static function getBasePath(): string
     {
-        return "resources/$parentIds[0]/schedule-blocks";
+        return 'booking-groups';
     }
 
     /**
@@ -25,6 +23,6 @@ class ScheduleBlockRepository extends NestedCrudRepository
      */
     protected static function getModel(): string
     {
-        return ScheduleBlock::class;
+        return BookingGroup::class;
     }
 }

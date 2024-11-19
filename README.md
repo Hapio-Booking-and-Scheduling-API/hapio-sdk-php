@@ -48,7 +48,7 @@ while ($response) {
 
 ### API client
 
-The `Hapio\Sdk\ApiClient` class is a subclass of `GuzzleHttp\Client`. To instantiate it, you simply provide your API token to its constructor:
+Provide your API token when you instantiate the API client:
 
 ```php
 use Hapio\Sdk\ApiClient;
@@ -68,6 +68,7 @@ The following models are available in the SDK:
 - `Hapio\Sdk\Models\RecurringSchedule`
 - `Hapio\Sdk\Models\RecurringScheduleBlock`
 - `Hapio\Sdk\Models\Booking`
+- `Hapio\Sdk\Models\BookingGroup`
 - `Hapio\Sdk\Models\BookableSlot`
 - `Hapio\Sdk\Models\TimeSpan`
 - `Hapio\Sdk\Models\ResourceServiceAssociation`
@@ -119,6 +120,7 @@ The Hapio SDK provides a repository class for each type of entity available in H
 - `Hapio\Sdk\Repositories\RecurringScheduleRepository`
 - `Hapio\Sdk\Repositories\RecurringScheduleBlockRepository`
 - `Hapio\Sdk\Repositories\BookingRepository`
+- `Hapio\Sdk\Repositories\BookingGroupRepository`
 
 These repositories are the communication gateway to the API, and are used to send and retrieve data.
 
@@ -133,6 +135,7 @@ public function scheduleBlocks(): ScheduleBlockRepository;
 public function recurringSchedules(): RecurringScheduleRepository;
 public function recurringScheduleBlocks(): RecurringScheduleBlockRepository;
 public function bookings(): BookingRepository;
+public function bookingGroups(): BookingGroupRepository;
 ```
 
 Each repository has a set of methods, corresponding to the endpoints available for the entity. These are listed for each repository below.
@@ -188,7 +191,7 @@ public function associateResource(string $serviceId, string $resourceId): Resour
 public function dissociateResource(string $serviceId, string $resourceId): bool;
 ```
 
-#### Hapio\Sdk\Repositories\ScheduleSlotRepository
+#### Hapio\Sdk\Repositories\ScheduleBlockRepository
 
 ```php
 public function list(array $parentIds, array $params = []): PaginatedResponse;
@@ -223,9 +226,35 @@ public function patch(array $parentIds, string $id, Service $service): Recurring
 public function delete(array $parentIds, string $id): bool;
 ```
 
+
+#### Hapio\Sdk\Repositories\Booking
+
+
+```php
+public function list(array $params = []): PaginatedResponse;
+public function get(string $id): Booking;
+public function store(Booking $booking): Booking;
+public function replace(string $id, Booking $booking): Booking;
+public function patch(string $id, Booking $booking): Booking;
+public function delete(string $id): bool;
+```
+
+
+#### Hapio\Sdk\Repositories\BookingGroupRepository
+
+
+```php
+public function list(array $params = []): PaginatedResponse;
+public function get(string $id): BookingGroup;
+public function store(BookingGroup $bookingGroup): BookingGroup;
+public function replace(string $id, BookingGroup $bookingGroup): BookingGroup;
+public function patch(string $id, BookingGroup $bookingGroup): BookingGroup;
+public function delete(string $id): bool;
+```
+
 ### Paginated responses
 
-All of the methods for API endpoints that respond with a paginated list, will return an instance of `Hapio\Sdk\PaginatedResponse`. This class has a set of methods that make it easier for you to work with these paginated responses.
+All the methods for API endpoints that respond with a paginated list, will return an instance of `Hapio\Sdk\PaginatedResponse`. This class has a set of methods that make it easier for you to work with these paginated responses.
 
 ```php
 public function getItems(): ArrayIterator;

@@ -3,7 +3,6 @@
 namespace Hapio\Sdk;
 
 use ArrayIterator;
-use Hapio\Sdk\Repositories\CrudRepositoryInterface;
 
 class PaginatedResponse
 {
@@ -17,58 +16,58 @@ class PaginatedResponse
     /**
      * The items in the response.
      *
-     * @var array
+     * @var ArrayIterator
      */
-    protected $items;
+    protected ArrayIterator $items;
 
     /**
      * The number of the current page.
      *
      * @var int
      */
-    protected $currentPageNumber;
+    protected int $currentPageNumber;
 
     /**
      * The number of the last page.
      *
      * @var int
      */
-    protected $lastPageNumber;
+    protected int $lastPageNumber;
 
     /**
      * The index of the first item on this page.
      *
      * @var int
      */
-    protected $fromIndex;
+    protected int $fromIndex;
 
     /**
      * The index of the last item on this page.
      *
      * @var int
      */
-    protected $toIndex;
+    protected int $toIndex;
 
     /**
      * The number of items per page.
      *
      * @var int
      */
-    protected $numPerPage;
+    protected int $numPerPage;
 
     /**
      * The total number of items across all pages.
      *
      * @var int
      */
-    protected $numTotal;
+    protected int $numTotal;
 
     /**
      * The links to other pages.
      *
      * @var array
      */
-    protected $links;
+    protected array $links;
 
     /**
      * Constructor.
@@ -80,7 +79,6 @@ class PaginatedResponse
     {
         $this->followLinkCallback = $followLinkCallback;
         $this->items = new ArrayIterator($response['data']);
-        $this->currentPageNumber = $response['meta']['current_page'];
         $this->currentPageNumber = $response['meta']['current_page'];
         $this->lastPageNumber = $response['meta']['last_page'];
         $this->fromIndex = $response['meta']['from'];
@@ -163,7 +161,7 @@ class PaginatedResponse
      *
      * @return static|null
      */
-    protected function followLink($link): static|null
+    protected function followLink(string $link): static|null
     {
         return ($this->followLinkCallback)($link);
     }
@@ -275,7 +273,7 @@ class PaginatedResponse
      *
      * @return string|null
      */
-    protected function getLink($link): string|null
+    protected function getLink(string $link): string|null
     {
         return $this->links[$link];
     }

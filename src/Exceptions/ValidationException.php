@@ -11,7 +11,7 @@ class ValidationException extends ErrorException
      *
      * @var array
      */
-    protected $validationErrors = [];
+    protected array $validationErrors = [];
 
     /**
      * Constructor.
@@ -42,7 +42,7 @@ class ValidationException extends ErrorException
      *
      * @return array
      */
-    public function getValidationErrors()
+    public function getValidationErrors(): array
     {
         return $this->validationErrors;
     }

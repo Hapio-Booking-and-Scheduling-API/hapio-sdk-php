@@ -4,6 +4,7 @@ require __DIR__ . '/../vendor/autoload.php';
 
 const API_TOKEN = 'your-api-token';
 
+use GuzzleHttp\Exception\GuzzleException;
 use Hapio\Sdk\ApiClient;
 use Hapio\Sdk\Exceptions\ErrorException;
 
@@ -17,6 +18,6 @@ try {
     echo 'Enabled: ' . ($project->enabled ? 'Yes' : 'No') . PHP_EOL;
     echo 'Created at: ' . $project->created_at->format('Y-m-d H:i:s P') . PHP_EOL;
     echo 'Updated at: ' . $project->created_at->format('Y-m-d H:i:s P') . PHP_EOL;
-} catch (ErrorException $e) {
+} catch (ErrorException|GuzzleException $e) {
     echo 'API request failed: ' . $e->getMessage() . ' (' . $e->getCode() . ').' . PHP_EOL;
 }

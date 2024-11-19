@@ -2,7 +2,9 @@
 
 namespace Hapio\Sdk\Models;
 
-class RecurringSchedule extends Model
+use DateTime;
+
+class BookingGroup extends Model
 {
     /**
      * The valid property names for the model.
@@ -11,10 +13,9 @@ class RecurringSchedule extends Model
      */
     protected static $propertyNames = [
         'id',
-        'location_id',
-        'location',
-        'start_date',
-        'end_date',
+        'metadata',
+        'protected_metadata',
+        'bookings',
         'created_at',
         'updated_at',
     ];
@@ -25,6 +26,8 @@ class RecurringSchedule extends Model
      * @var array
      */
     protected static $casts = [
-        'location' => Location::class,
+        'bookings.*' => Booking::class,
+        'created_at' => DateTime::class,
+        'updated_at' => DateTime::class,
     ];
 }

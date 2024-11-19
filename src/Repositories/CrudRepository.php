@@ -3,6 +3,7 @@
 namespace Hapio\Sdk\Repositories;
 
 use GuzzleHttp\Exception\BadResponseException;
+use GuzzleHttp\Exception\GuzzleException;
 use Hapio\Sdk\Exceptions\ErrorException;
 use Hapio\Sdk\Exceptions\ValidationException;
 use Hapio\Sdk\Models\ModelInterface;
@@ -18,6 +19,8 @@ abstract class CrudRepository extends Repository implements CrudRepositoryInterf
      * @param string $id The ID of the model.
      *
      * @return ModelInterface|null
+     * @throws ErrorException
+     * @throws GuzzleException
      */
     public function get(string $id): ModelInterface|null
     {
@@ -40,6 +43,9 @@ abstract class CrudRepository extends Repository implements CrudRepositoryInterf
      * @param array $params The query parameters.
      *
      * @return PaginatedResponse
+     * @throws ErrorException
+     * @throws GuzzleException
+     * @throws ValidationException
      */
     public function list(array $params = []): PaginatedResponse
     {
@@ -83,6 +89,9 @@ abstract class CrudRepository extends Repository implements CrudRepositoryInterf
      * @param ModelInterface $model The model to store.
      *
      * @return ModelInterface
+     * @throws ErrorException
+     * @throws GuzzleException
+     * @throws ValidationException
      */
     public function store(ModelInterface $model): ModelInterface
     {
@@ -110,6 +119,9 @@ abstract class CrudRepository extends Repository implements CrudRepositoryInterf
      * @param ModelInterface $model The new model.
      *
      * @return ModelInterface
+     * @throws ErrorException
+     * @throws GuzzleException
+     * @throws ValidationException
      */
     public function replace(string $id, ModelInterface $model): ModelInterface
     {
@@ -137,6 +149,9 @@ abstract class CrudRepository extends Repository implements CrudRepositoryInterf
      * @param ModelInterface $model The new model.
      *
      * @return ModelInterface
+     * @throws ErrorException
+     * @throws GuzzleException
+     * @throws ValidationException
      */
     public function patch(string $id, ModelInterface $model): ModelInterface
     {
@@ -163,6 +178,8 @@ abstract class CrudRepository extends Repository implements CrudRepositoryInterf
      * @param string $id The ID of the model.
      *
      * @return bool
+     * @throws ErrorException
+     * @throws GuzzleException
      */
     public function delete(string $id): bool
     {

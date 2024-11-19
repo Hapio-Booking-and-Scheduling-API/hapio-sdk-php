@@ -15,7 +15,7 @@ class RecurringScheduleRepository extends NestedCrudRepository
      */
     protected static function getBasePath(array $parentIds): string
     {
-        return "resources/{$parentIds[0]}/recurring-schedules";
+        return "resources/$parentIds[0]/recurring-schedules";
     }
 
     /**
