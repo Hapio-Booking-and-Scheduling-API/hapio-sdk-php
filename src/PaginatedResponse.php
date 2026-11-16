@@ -35,18 +35,18 @@ class PaginatedResponse
     protected int $lastPageNumber;
 
     /**
-     * The index of the first item on this page.
+     * The index of the first item on this page, or null if the page is empty.
      *
-     * @var int
+     * @var int|null
      */
-    protected int $fromIndex;
+    protected int|null $fromIndex;
 
     /**
-     * The index of the last item on this page.
+     * The index of the last item on this page, or null if the page is empty.
      *
-     * @var int
+     * @var int|null
      */
-    protected int $toIndex;
+    protected int|null $toIndex;
 
     /**
      * The number of items per page.
@@ -187,21 +187,21 @@ class PaginatedResponse
     }
 
     /**
-     * Get the index of the first item on this page.
+     * Get the index of the first item on this page, or null if the page is empty.
      *
-     * @return int
+     * @return int|null
      */
-    public function getFromIndex(): int
+    public function getFromIndex(): int|null
     {
         return $this->fromIndex;
     }
 
     /**
-     * Get the index of the last item on this page.
+     * Get the index of the last item on this page, or null if the page is empty.
      *
-     * @return int
+     * @return int|null
      */
-    public function getToIndex(): int
+    public function getToIndex(): int|null
     {
         return $this->toIndex;
     }
